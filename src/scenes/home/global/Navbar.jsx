@@ -41,7 +41,7 @@ function Navbar() {
           sx={{ "&:hover": { cursor: "pointer" } }}
           color={shades.secondary[500]}
         >
-          ECOMMERCE
+          FarFetch
         </Box>
         <Box
           display="flex"
