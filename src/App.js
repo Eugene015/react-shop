@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Checkout from "./scenes/home/checkout/Checkout";
+import Confirmation from "./scenes/home/checkout/Confirmation";
 import Home from "./scenes/home/Home";
 import ItemDetails from "./scenes/home/itemDetails/ItemDetails";
 
@@ -23,7 +24,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="item/:itemId" element={<ItemDetails />} />
           <Route path="checkout" element={<Checkout />} />
-          <Route path="/" element={<Home />} />
+          <Route path="checkout/success" element={<Confirmation />} />
         </Routes>
       </BrowserRouter>
     </div>
