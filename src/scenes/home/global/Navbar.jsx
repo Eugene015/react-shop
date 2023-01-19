@@ -39,7 +39,9 @@ function Navbar() {
         <Box
           onClick={() => navigate("/")}
           sx={{ "&:hover": { cursor: "pointer" } }}
-          color={shades.secondary[500]}
+          color={shades.primary[500]}
+          fontSize="24px"
+          fontWeight="bold"
         >
           FarFetch
         </Box>
