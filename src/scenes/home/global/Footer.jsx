@@ -12,7 +12,7 @@ function Footer() {
       <Box
         width="80%"
         margin="auto"
-        display="play"
+        display="flex"
         justifyContent="space-between"
         flexWrap="wrap"
         rowGap="30px"
@@ -57,14 +57,12 @@ function Footer() {
         </Box>
 
         <Box width="clamp(20%, 25%, 20%)">
-          <Typography
-            variant="h3"
-            fontWeight="bold"
-            mb="30px"
-            color={shades.primary[500]}
-          >
-            FarFetch
+          <Typography variant="h4" fontWeight="bold" mb="30px">
+            Contact Us
           </Typography>
+          <Typography mb="30px">5th Avenue, Manhattan, NY, 11232</Typography>
+          <Typography mb="30px">Email: contact@farfetch.com</Typography>
+          <Typography mb="30px">(111)123-4455</Typography>
         </Box>
       </Box>
     </Box>
