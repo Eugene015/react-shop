@@ -4,6 +4,7 @@ import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { shades } from "../../../theme";
+import Shipping from "./Shipping";
 
 const initialValues = {
   billingAddress: {
@@ -29,31 +30,58 @@ const initialValues = {
   },
   email: "",
   phoneNumber: "",
+};
 
-}
-
-const checkoutSchema = [ yup.object().shape({
-  billingAddress: yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    country: yup.string().required("required"),
-    street1: yup.string().required("required"),
-    street2: yup.string(),
-    city: yup.string().required("required"),
-    state: yup.string().required("required"),
-    zipCode: yup.string().required("required"),
+const checkoutSchema = [
+  yup.object().shape({
+    billingAddress: yup.object().shape({
+      firstName: yup.string().required("required"),
+      lastName: yup.string().required("required"),
+      country: yup.string().required("required"),
+      street1: yup.string().required("required"),
+      street2: yup.string(),
+      city: yup.string().required("required"),
+      state: yup.string().required("required"),
+      zipCode: yup.string().required("required"),
+    }),
+    shippingAddress: yup.object().shape({
+      isSameAddress: yup.boolean(),
+      firstName: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      lastName: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      country: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      street1: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      street2: yup.string(),
+      city: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      state: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+      zipCode: yup.string().when("isSameAddress", {
+        is: false,
+        then: yup.string().required("required"),
+      }),
+    }),
   }),
-  shippingAddress: yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    country: yup.string().required("required"),
-    street1: yup.string().required("required"),
-    street2: yup.string(),
-    city: yup.string().required("required"),
-    state: yup.string().required("required"),
-    zipCode: yup.string().required("required"),
-  })
-})]
+  yup.object().shape({
+    email: yup.string().required("required"),
+    phoneNumber: yup.string().required("required"),
+  }),
+];
 
 function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
@@ -81,8 +109,31 @@ function Checkout() {
         <Formik
           onSubmit={handleFormSubmit}
           initialValues={initialValues}
-          validationSchema={}
-        ></Formik>
+          validationSchema={checkoutSchema[activeStep]}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+            setFieldValue,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              {isFirstStep && (
+                <Shipping
+                  values={values}
+                  errors={errors}
+                  touched={touched}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  setFieldValue={setFieldValue}
+                />
+              )}
+            </form>
+          )}
+        </Formik>
       </Box>
     </Box>
   );
