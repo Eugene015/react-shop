@@ -12,9 +12,11 @@ import Item from "../../../components/Item";
 function ItemDetails() {
   const dispatch = useDispatch();
   const { itemId } = useParams();
+
   const [value, setValue] = useState("description");
   const [count, setCount] = useState(1);
   const [item, setItem] = useState(null);
+
   const [items, setItems] = useState([]);
 
   const handleChange = (event, newValue) => {
@@ -23,7 +25,7 @@ function ItemDetails() {
 
   async function getItem() {
     const item = await fetch(
-      `http://localhost:1337/api/items/${itemId}?populate-image`,
+      `http://localhost:1337/api/items/${itemId}?populate=image`,
       { method: "GET" }
     );
     const itemJson = await item.json();
