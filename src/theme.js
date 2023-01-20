@@ -52,7 +52,7 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: ["Fauna One", "sans-serif"].join(","),
-    fontSize: 11,
+    fontSize: 16,
     h1: {
       fontFamily: ["Fauna One", "sans-serif"].join(","),
       fontSize: 48,
@@ -67,7 +67,7 @@ export const theme = createTheme({
     },
     h4: {
       fontFamily: ["Fauna One", "sans-serif"].join(","),
-      fontSize: 14,
+      fontSize: 16,
     },
   },
 });
