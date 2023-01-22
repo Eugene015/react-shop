@@ -5,6 +5,12 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { shades } from "../../../theme";
 import Shipping from "./Shipping";
+import Payment from "./Payment";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51MT2J5CqV0wIVdwGppfx8EVHfCZUBNuk6PffJK1cFWcf2Fd3hEfux7Hi4rT6YdVRz0pjppR7NbIss6bJAtoCH1oY00GV9b6kdj"
+);
 
 const initialValues = {
   billingAddress: {
@@ -106,7 +112,28 @@ function Checkout() {
     actions.setTouched({});
   };
 
-  async function makePayment(values) {}
+  async function makePayment(values) {
+    const stripe = await stripePromise;
+    const requestBody = {
+      userName: [values.firstName, values.lastName].join(" "),
+      email: values.email,
+      products: cart.map(({ id, count }) => ({
+        id,
+        count,
+      })),
+    };
+
+    const response = await fetch("http://localhost: 1337/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    const session = await response.json();
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+  }
 
   return (
     <Box width="80%" m="100px auto">
