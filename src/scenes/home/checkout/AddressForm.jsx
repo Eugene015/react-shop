@@ -1,17 +1,19 @@
-import React from "react";
-import { Box, useMediaQuery, TextField } from "@mui/material";
-import { getIn, validateYupSchema } from "formik";
+import { getIn } from "formik";
+import { Box } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
-function AddressForm({
+const AddressForm = ({
   type,
-  errors,
   values,
   touched,
+  errors,
   handleBlur,
   handleChange,
-}) {
-  const isNonMobile = useMediaQuery("(min-width: 600px)");
+}) => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
 
+  // these functions allow for better code readability
   const formattedName = (field) => `${type}.${field}`;
 
   const formattedError = (field) =>
@@ -28,7 +30,9 @@ function AddressForm({
       display="grid"
       gap="15px"
       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-      sx={{ "& > div": { gridColumn: isNonMobile ? undefined : "span 4" } }}
+      sx={{
+        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+      }}
     >
       <TextField
         fullWidth
@@ -128,6 +132,6 @@ function AddressForm({
       />
     </Box>
   );
-}
+};
 
 export default AddressForm;

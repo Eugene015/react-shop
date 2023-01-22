@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, TextField } from "@mui/material";
 
-function Payment({ values, tuoched, errors, handleBlur, handleChange }) {
+function Payment({ values, touched, errors, handleBlur, handleChange }) {
   return (
     <Box m="30px 0">
       {/* Contacts */}
@@ -17,8 +17,8 @@ function Payment({ values, tuoched, errors, handleBlur, handleChange }) {
           onChange={handleChange}
           value={values.email}
           name={"email"}
-          error={!!tuoched.email && !!errors.email}
-          helperText={tuoched.email && errors.email}
+          error={!!touched.email && !!errors.email}
+          helperText={touched.email && errors.email}
           sx={{ gridColumn: "span 4", marginBottom: "15px" }}
         />
         <TextField
@@ -29,8 +29,8 @@ function Payment({ values, tuoched, errors, handleBlur, handleChange }) {
           onChange={handleChange}
           value={values.phoneNumber}
           name={"phoneNumber"}
-          error={!!tuoched.phoneNumber && !!errors.phoneNumber}
-          helperText={tuoched.phoneNumber && errors.phoneNumber}
+          error={!!touched.phoneNumber && !!errors.phoneNumber}
+          helperText={touched.phoneNumber && errors.phoneNumber}
           sx={{ gridColumn: "span 4", marginBottom: "15px" }}
         />
       </Box>
