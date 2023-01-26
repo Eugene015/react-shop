@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
-import { Badge, Box, IconButton, Button } from "@mui/material";
+import { Badge, Box, IconButton, useMediaQuery } from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -60,8 +60,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [value, setValue] = useState("all");
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const cart = useSelector((state) => state.cart.cart);
+  const isNonMobile = useMediaQuery("(min-width: 600px)");
+
+  const handleInputChange = (e) => {
+    setTimeout(() => {
+      const value = e.target.value;
+      console.log(value);
+      setValue(value);
+    }, 1000);
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      navigate("/searchpage", { state: { value: e.target.value } });
+      setIsSearchClicked(false);
+    }
+  };
 
   return (
     <Box
@@ -98,7 +115,7 @@ function Navbar() {
           columnGap="20px"
           zIndex="2"
         >
-          {isSearchClicked ? (
+          {isSearchClicked && isNonMobile ? (
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -106,6 +123,8 @@ function Navbar() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onChange={handleInputChange}
+                onKeyDown={handleSearch}
               />
             </Search>
           ) : (
