@@ -17,10 +17,15 @@ function ShoppingList() {
 
   async function getItems() {
     const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
+      `${process.env.DATABASE_URL}/api/items?populate=image`,
       { method: "GET" }
     );
     const itemsJson = await items.json();
+    console.log(
+      "🚀 ~ file: ShoppingList.jsx:24 ~ getItems ~ itemsJson",
+      itemsJson
+    );
+
     dispatch(setItems(itemsJson.data));
   }
   useEffect(() => {

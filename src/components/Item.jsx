@@ -36,7 +36,7 @@ function Item({ item, width }) {
         onMouseOut={() => setIsHovered(false)}
       >
         <img
-          src={`http://localhost:1337${url}`}
+          src={`${process.env.DATABASE_URL}${url}`}
           alt={item.name}
           width="300px"
           height="400px"

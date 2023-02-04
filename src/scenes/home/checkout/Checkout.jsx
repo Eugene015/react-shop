@@ -85,9 +85,7 @@ const checkoutSchema = [
   }),
 ];
 
-const stripePromise = loadStripe(
-  "pk_test_51MT2J5CqV0wIVdwGppfx8EVHfCZUBNuk6PffJK1cFWcf2Fd3hEfux7Hi4rT6YdVRz0pjppR7NbIss6bJAtoCH1oY00GV9b6kdj"
-);
+const stripePromise = loadStripe(`${process.env.STRIPE_PK}`);
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -132,7 +130,7 @@ const Checkout = () => {
       requestBody
     );
 
-    const response = await fetch("http://localhost:1337/api/orders", {
+    const response = await fetch(`${process.env.DATABASE_URL}/api/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),

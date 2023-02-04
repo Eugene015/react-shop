@@ -25,7 +25,7 @@ function ItemDetails() {
 
   async function getItem() {
     const item = await fetch(
-      `http://localhost:1337/api/items/${itemId}?populate=image`,
+      `${process.env.DATABASE_URL}/api/items/${itemId}?populate=image`,
       { method: "GET" }
     );
     const itemJson = await item.json();
@@ -34,7 +34,7 @@ function ItemDetails() {
 
   async function getItems() {
     const items = await fetch(
-      "http://localhost:1337/api/items?populate=image",
+      `${process.env.DATABASE_URL}/api/items?populate=image`,
       { method: "GET" }
     );
     const itemsJson = await items.json();
