@@ -43,6 +43,7 @@ function Item({ item, width }) {
           onClick={() => navigate(`/item/${item.id}`)}
           style={{ cursor: "pointer" }}
         />
+
         <Box
           display={isHovered ? "block" : "none"}
           position="absolute"
