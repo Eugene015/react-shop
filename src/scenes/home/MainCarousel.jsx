@@ -83,13 +83,13 @@ function MainCarousel() {
             maxWidth={isNonMobile ? undefined : "240px"}
           >
             <Typography color={shades.secondary[200]}>-- NEW ITEMS</Typography>
-            <Typography variant="h1">Summer Sale</Typography>
+            <Typography variant="h1">Spring Sale</Typography>
             <Typography
               fontWeight="bold"
               color={shades.secondary[300]}
               sx={{ textDecoration: "underline" }}
             >
-              Discover More
+              Learn More
             </Typography>
           </Box>
         </Box>
