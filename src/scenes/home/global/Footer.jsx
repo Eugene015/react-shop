@@ -28,11 +28,11 @@ function Footer() {
             FarFetch
           </Typography>
           <Box fontSize="14px">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Exercitationem magni molestias aliquid modi sunt tenetur! Dolores
-            consequatur, maxime voluptatibus ullam fugit deleniti sint nobis
-            soluta perferendis repellendus accusantium qui id delectus quasi
-            atque quo cupiditate est nulla facere earum dicta laboriosam.
+            The content of this site is protected by copyright and is the
+            property of FarFetch Company. FarFetch business concept is to offer
+            fashion and quality at the best price and in a sustainable way.
+            Since its foundation in 2011, FarFetch has become one of the world's
+            leading fashion companies.
           </Box>
         </Box>
         <Box>

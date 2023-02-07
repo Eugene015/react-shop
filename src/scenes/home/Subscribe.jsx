@@ -12,7 +12,7 @@ function Subscribe() {
       </IconButton>
       <Typography variant="h3">Subscribe to Our newsletter</Typography>
       <Typography>
-        and receive $20 coupon for your first order when you checkout
+        and receive $20 coupon for your first order after checkout
       </Typography>
       <Box
         p="2px 4px"
