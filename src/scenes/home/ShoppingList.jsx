@@ -3,6 +3,7 @@ import { Box, Typography, Tabs, Tab, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
 import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../state";
+import axios from "axios";
 
 function ShoppingList() {
   const dispatch = useDispatch();
@@ -16,18 +17,13 @@ function ShoppingList() {
   };
 
   async function getItems() {
-    const items = await fetch(
-      `${process.env.DATABASE_URL}/api/items?populate=image`,
-      { method: "GET" }
-    );
-    const itemsJson = await items.json();
-    console.log(
-      "🚀 ~ file: ShoppingList.jsx:24 ~ getItems ~ itemsJson",
-      itemsJson
-    );
+    const items = await axios
+      .get("https://ecommerce-shop-back.herokuapp.com/api/items?populate=image")
+      .then((response) => response.data);
 
-    dispatch(setItems(itemsJson.data));
+    dispatch(setItems(items.data));
   }
+
   useEffect(() => {
     getItems();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

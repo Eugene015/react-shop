@@ -8,6 +8,7 @@ import { shades } from "../../../theme";
 import { addToCart } from "../../../state";
 import { useParams } from "react-router-dom";
 import Item from "../../../components/Item";
+import axios from "axios";
 
 function ItemDetails() {
   const dispatch = useDispatch();
@@ -24,21 +25,20 @@ function ItemDetails() {
   };
 
   async function getItem() {
-    const item = await fetch(
-      `${process.env.DATABASE_URL}/api/items/${itemId}?populate=image`,
-      { method: "GET" }
-    );
-    const itemJson = await item.json();
-    setItem(itemJson.data);
+    const item = await axios
+      .get(
+        `https://ecommerce-shop-back.herokuapp.com/api/items/${itemId}?populate=image`
+      )
+      .then((response) => response.data);
+
+    setItem(item.data);
   }
 
   async function getItems() {
-    const items = await fetch(
-      `${process.env.DATABASE_URL}/api/items?populate=image`,
-      { method: "GET" }
-    );
-    const itemsJson = await items.json();
-    dispatch(setItems(itemsJson.data));
+    const items = await axios
+      .get("https://ecommerce-shop-back.herokuapp.com/api/items?populate=image")
+      .then((response) => response.data);
+    setItems(items.data);
   }
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function ItemDetails() {
         {/* Pics */}
         <Box flex="1 1 40%" mb="40px">
           <img
-            src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={`https://ecommerce-shop-back.herokuapp.com${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
             style={{ objectFit: "contain" }}
             alt={item?.name}
             width="100%"
