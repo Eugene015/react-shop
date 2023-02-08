@@ -130,11 +130,14 @@ const Checkout = () => {
       requestBody
     );
 
-    const response = await fetch(`${process.env.DATABASE_URL}/api/orders`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(requestBody),
-    });
+    const response = await fetch(
+      "https://ecommerce-shop-back.herokuapp.com/api/orders",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      }
+    );
     console.log(
       "🚀 ~ file: Checkout.jsx:59 ~ makePayment ~ response",
       response
