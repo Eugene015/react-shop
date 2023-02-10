@@ -131,18 +131,12 @@ const Checkout = () => {
       requestBody
     );
 
-    const response = await axios.post(
-      "https://ecommerce-shop-back.herokuapp.com/api/orders",
-      requestBody
-    );
+    const response = await axios
+      .post("https://ecommerce-shop-back.herokuapp.com/api/orders", requestBody)
+      .then((response) => response)
+      .catch((error) => console.log("axios catch error", error));
 
-    console.log(
-      "🚀 ~ file: Checkout.jsx:59 ~ makePayment ~ response",
-      response
-    );
-
-    const session = await response.json();
-    console.log("🚀 ~ file: Checkout.jsx:65 ~ makePayment ~ session", session);
+    const session = await response.data;
     await stripe.redirectToCheckout({
       sessionId: session.id,
     });
