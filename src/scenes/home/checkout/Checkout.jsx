@@ -7,6 +7,7 @@ import { shades } from "../../../theme";
 import Shipping from "./Shipping";
 import Payment from "./Payment";
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
 const initialValues = {
   billingAddress: {
@@ -130,14 +131,11 @@ const Checkout = () => {
       requestBody
     );
 
-    const response = await fetch(
+    const response = await axios.post(
       "https://ecommerce-shop-back.herokuapp.com/api/orders",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody),
-      }
+      requestBody
     );
+
     console.log(
       "🚀 ~ file: Checkout.jsx:59 ~ makePayment ~ response",
       response

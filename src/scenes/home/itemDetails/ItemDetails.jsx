@@ -52,7 +52,9 @@ function ItemDetails() {
         {/* Pics */}
         <Box flex="1 1 40%" mb="40px">
           <img
-            src={`https://ecommerce-shop-back.herokuapp.com${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={
+              item?.attributes?.image?.data?.attributes?.formats?.medium?.url
+            }
             style={{ objectFit: "contain" }}
             alt={item?.name}
             width="100%"
