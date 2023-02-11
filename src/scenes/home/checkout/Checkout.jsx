@@ -86,7 +86,9 @@ const checkoutSchema = [
   }),
 ];
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PK}`);
+const stripePromise = loadStripe(
+  "pk_test_51MT2J5CqV0wIVdwGOztLyv2wzZ072I9s8ESPX5UrWU5NJpr3dE0WdKHGJu0yksJEVQhYA2eakHaJ3tXFWMuCE6jw00vyMqWfIC"
+);
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -126,15 +128,15 @@ const Checkout = () => {
         count,
       })),
     };
-    console.log(
-      "🚀 ~ file: Checkout.jsx:49 ~ makePayment ~ requestBody",
-      requestBody
-    );
 
     const response = await axios
       .post("https://ecommerce-shop-back.herokuapp.com/api/orders", requestBody)
       .then((response) => response)
       .catch((error) => console.log("axios catch error", error));
+    console.log(
+      "🚀 ~ file: Checkout.jsx:136 ~ makePayment ~ response",
+      response
+    );
 
     const session = await response.data;
     await stripe.redirectToCheckout({
