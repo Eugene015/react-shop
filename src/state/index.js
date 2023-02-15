@@ -4,6 +4,7 @@ const initialState = {
   isCartOpen: false,
   cart: [],
   items: [],
+  isItemsLoaded: false,
 };
 
 export const cartSlice = createSlice({
@@ -12,6 +13,7 @@ export const cartSlice = createSlice({
   reducers: {
     setItems: (state, action) => {
       state.items = action.payload;
+      state.isItemsLoaded = true;
     },
     addToCart: (state, action) => {
       state.cart = [...state.cart, action.payload.item];

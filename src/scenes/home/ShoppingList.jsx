@@ -3,12 +3,19 @@ import { Box, Typography, Tabs, Tab, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
 import { useDispatch, useSelector } from "react-redux";
 import { setItems } from "../../state";
+import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 
 function ShoppingList() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
   const items = useSelector((state) => state.cart.items);
+  const isItemsLoaded = useSelector((state) => state.cart.isItemsLoaded);
+  console.log(
+    "🚀 ~ file: ShoppingList.jsx:13 ~ ShoppingList ~ isItemsLoaded",
+    isItemsLoaded
+  );
+  console.log("🚀 ~ file: ShoppingList.jsx:12 ~ ShoppingList ~ items", items);
 
   const isNonMobile = useMediaQuery("(min-width: 600px)");
 
@@ -40,7 +47,7 @@ function ShoppingList() {
     (item) => item.attributes.category === "bestSellers"
   );
 
-  return (
+  return isItemsLoaded ? (
     <Box width="80%" margin="80px auto">
       <Typography variant="h3" textAlign="center">
         Our featured <b>Products</b>
@@ -89,6 +96,24 @@ function ShoppingList() {
             <Item item={item} key={`${item.name}-${item.id}`} />
           ))}
       </Box>
+    </Box>
+  ) : (
+    <Box
+      display="grid"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <ThreeDots
+        height="80"
+        width="80"
+        radius="9"
+        color="#878787"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        visible={true}
+      />
     </Box>
   );
 }
