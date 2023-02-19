@@ -10,6 +10,7 @@ import Footer from "./scenes/home/global/Footer";
 import Login from "./scenes/Login";
 import Register from "./scenes/Register";
 import Search from "./scenes/Search";
+import { useFetchUser, UserProvider } from "./services/authContext";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -22,22 +23,26 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  const { user, loading } = useFetchUser();
+
   return (
     <div className="app">
       <BrowserRouter>
-        <Navbar />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/searchpage" element={<Search />} />
-          <Route path="item/:itemId" element={<ItemDetails />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="checkout/success" element={<Confirmation />} />
-        </Routes>
-        <CartMenu />
-        <Footer />
+        <UserProvider>
+          <Navbar user={user} />
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/searchpage" element={<Search />} />
+            <Route path="item/:itemId" element={<ItemDetails />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="checkout/success" element={<Confirmation />} />
+          </Routes>
+          <CartMenu />
+          <Footer />
+        </UserProvider>
       </BrowserRouter>
     </div>
   );

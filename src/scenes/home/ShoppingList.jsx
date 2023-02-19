@@ -11,12 +11,6 @@ function ShoppingList() {
   const [value, setValue] = useState("all");
   const items = useSelector((state) => state.cart.items);
   const isItemsLoaded = useSelector((state) => state.cart.isItemsLoaded);
-  console.log(
-    "🚀 ~ file: ShoppingList.jsx:13 ~ ShoppingList ~ isItemsLoaded",
-    isItemsLoaded
-  );
-  console.log("🚀 ~ file: ShoppingList.jsx:12 ~ ShoppingList ~ items", items);
-
   const isNonMobile = useMediaQuery("(min-width: 600px)");
 
   const handleChange = (event, newValue) => {

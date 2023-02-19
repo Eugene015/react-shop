@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
-import { Badge, Box, IconButton, useMediaQuery } from "@mui/material";
+import {
+  Badge,
+  Box,
+  IconButton,
+  useMediaQuery,
+  Typography,
+} from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -57,13 +63,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Navbar() {
+function Navbar({ user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const cart = useSelector((state) => state.cart.cart);
   const isNonMobile = useMediaQuery("(min-width: 600px)");
+
+  console.log("🚀 ~ file: Navbar.jsx:69 ~ Navbar ~ user", user);
 
   const handleInputChange = (e) => {
     setTimeout(() => {
@@ -112,6 +120,7 @@ function Navbar() {
         <Box
           display="flex"
           justifyContent="space-between"
+          alignItems="center"
           columnGap="20px"
           zIndex="2"
         >
@@ -135,12 +144,27 @@ function Navbar() {
               <SearchOutlined />
             </IconButton>
           )}
-          <IconButton
-            sx={{ color: "black" }}
-            onClick={() => navigate("/login")}
-          >
-            <PersonOutline />
-          </IconButton>
+          {!user ? (
+            <IconButton
+              sx={{ color: "black" }}
+              onClick={() => navigate("/login")}
+            >
+              <PersonOutline />
+            </IconButton>
+          ) : (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              backgroundColor="#c9c9c9"
+              border="1px"
+              height="30px"
+              width="30px"
+              borderRadius="50%"
+            >
+              <Typography variant="h3">{user[0].toUpperCase()}</Typography>
+            </Box>
+          )}
           <Badge
             badgeContent={cart.length}
             color="secondary"
