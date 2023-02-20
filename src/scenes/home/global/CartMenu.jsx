@@ -8,6 +8,8 @@ import styled from "@emotion/styled";
 import { shades } from "../../../theme";
 import {
   decreaseCount,
+  getCart,
+  getIsCartOpen,
   increaseCount,
   removeFromCart,
   setIsCartOpen,
@@ -23,8 +25,8 @@ const FlexBox = styled(Box)`
 function CartMenu() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
-  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+  const cart = useSelector(getCart());
+  const isCartOpen = useSelector(getIsCartOpen());
 
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.attributes.price;

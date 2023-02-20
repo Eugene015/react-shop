@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Tabs, Tab, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
 import { useDispatch, useSelector } from "react-redux";
-import { setItems } from "../../state";
+import { getIsItemsLoaded, setItems, getItemsFromStore } from "../../state";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 
 function ShoppingList() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
-  const items = useSelector((state) => state.cart.items);
-  const isItemsLoaded = useSelector((state) => state.cart.isItemsLoaded);
+  const items = useSelector(getItemsFromStore());
+  const isItemsLoaded = useSelector(getIsItemsLoaded());
   const isNonMobile = useMediaQuery("(min-width: 600px)");
 
   const handleChange = (event, newValue) => {
@@ -21,7 +21,7 @@ function ShoppingList() {
     const items = await axios
       .get("https://ecommerce-shop-back.herokuapp.com/api/items?populate=image")
       .then((response) => response.data);
-
+    console.log(items.data);
     dispatch(setItems(items.data));
   }
 

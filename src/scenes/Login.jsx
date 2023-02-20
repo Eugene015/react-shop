@@ -13,34 +13,38 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { setToken, unsetToken } from "../services/auth";
-
+import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { setUser } from "../state/user";
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     identifier: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const responseData = await axios
-      .post("http://localhost:1337/api/auth/local", {
+      .post("http://localhost:1337/api/auth/local?populate=*", {
         identifier: data.identifier,
         password: data.password,
       })
       .then((response) => response.data)
       .catch((error) => {
-        console.log("An error occurred:", error.response);
+        console.log(error.response.data.error.message);
+        setError(error.response.data.error.message);
       });
-
+    dispatch(setUser(responseData.user));
     setToken(responseData);
-    if (Cookies.get("username")) {
+    if (responseData !== undefined) {
       navigate("/");
     }
   };
@@ -98,6 +102,12 @@ function Login() {
             />
           </FormControl>
         </Box>
+        <Typography
+          variant="h4"
+          sx={{ textAlign: "center", color: "red", mb: "16px" }}
+        >
+          {error}
+        </Typography>
         <Button
           variant="contained"
           fullWidth

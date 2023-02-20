@@ -15,8 +15,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setToken } from "../services/auth";
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setUser } from "../state/user";
 
 function Register() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
@@ -24,6 +27,7 @@ function Register() {
     password: "",
     username: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -39,9 +43,11 @@ function Register() {
       })
       .then((response) => response.data)
       .catch((error) => {
-        console.log("An error occurred:", error.response);
+        console.log(error.response.data.error.message);
+        setError(error.response.data.error.message);
       });
-
+    console.log(responseData);
+    dispatch(setUser(responseData.user));
     setToken(responseData);
     if (Cookies.get("username")) {
       navigate("/");
@@ -105,6 +111,12 @@ function Register() {
             />
           </FormControl>
         </Box>
+        <Typography
+          variant="h4"
+          sx={{ textAlign: "center", color: "red", mb: "16px" }}
+        >
+          {error}
+        </Typography>
         <Button
           variant="contained"
           fullWidth

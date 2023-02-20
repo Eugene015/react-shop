@@ -5,9 +5,9 @@ export const setToken = (data) => {
   if (typeof window === "undefined") {
     return;
   }
-  Cookies.set("id", data.user.id);
-  Cookies.set("username", data.user.username);
-  Cookies.set("jwt", data.jwt);
+  Cookies.set("id", data?.user?.id);
+  Cookies.set("username", data?.user?.username);
+  Cookies.set("jwt", data?.jwt);
 };
 
 export const unsetToken = () => {
@@ -17,8 +17,6 @@ export const unsetToken = () => {
   Cookies.remove("id");
   Cookies.remove("jwt");
   Cookies.remove("username");
-
-  //   Router.reload("/");
 };
 
 export const getUserFromLocalCookie = () => {
@@ -34,7 +32,7 @@ export const getUserFromLocalCookie = () => {
         return response.data.username;
       })
       .catch((error) => {
-        console.log("An error occurred:", error.response);
+        console.log("An error occurred:", error.response.data.message);
       });
   } else {
     return;

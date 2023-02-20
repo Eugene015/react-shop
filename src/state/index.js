@@ -53,4 +53,8 @@ export const {
   setIsCartOpen,
 } = cartSlice.actions;
 
+export const getCart = () => (state) => state.cart.cart;
+export const getItemsFromStore = () => (state) => state.cart.items;
+export const getIsItemsLoaded = () => (state) => state.cart.isItemsLoaded;
+export const getIsCartOpen = () => (state) => state.cart.isCartOpen;
 export default cartSlice.reducer;

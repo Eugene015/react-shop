@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
 import {
@@ -22,8 +22,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../../theme";
-import { setIsCartOpen } from "../../../state";
+import { getCart, setIsCartOpen } from "../../../state";
 import { unsetToken } from "../../../services/auth";
+import { removeUser } from "../../../state/user";
+import { setUser } from "../../../state/user";
+import { getTokenFromLocalCookie } from "../../../services/auth";
+import axios from "axios";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -68,12 +72,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Navbar({ user }) {
+function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
   const [isSearchClicked, setIsSearchClicked] = useState(false);
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector(getCart());
+  const user = useSelector((state) => state.user.user);
+  const isUserLoaded = useSelector((state) => state.user.isUserLoaded);
+  console.log(
+    "🚀 ~ file: Navbar.jsx:80 ~ Navbar ~ isUserLoggedIn:",
+    isUserLoaded
+  );
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef();
@@ -87,6 +97,7 @@ function Navbar({ user }) {
   };
 
   const logout = () => {
+    dispatch(removeUser());
     unsetToken();
     navigate("/");
   };
@@ -101,6 +112,31 @@ function Navbar({ user }) {
   const handleSelectClick = () => {
     setIsOpen((prev) => !prev);
   };
+
+  async function getUserFromBack() {
+    const jwt = getTokenFromLocalCookie();
+    const responseUserData = await axios
+      .get("http://localhost:1337/api/users/me", {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("An error occurred:", error.response);
+      });
+
+    dispatch(setUser(responseUserData));
+  }
+
+  useEffect(() => {
+    const jwt = getTokenFromLocalCookie();
+    if (jwt) {
+      getUserFromBack();
+    }
+  }, []);
 
   return (
     <Box
@@ -158,7 +194,7 @@ function Navbar({ user }) {
               <SearchOutlined />
             </IconButton>
           )}
-          {!user ? (
+          {!isUserLoaded ? (
             <IconButton
               sx={{ color: "black" }}
               onClick={() => navigate("/login")}
@@ -189,15 +225,15 @@ function Navbar({ user }) {
                     overflow: "hidden",
                   }}
                 >
-                  <MenuItem value={10} onClick={() => navigate("/profile")}>
+                  <MenuItem onClick={() => navigate("/profile")}>
                     Profile
                   </MenuItem>
-                  <MenuItem value={20} onClick={logout}>
-                    Logout
-                  </MenuItem>
+                  <MenuItem onClick={logout}>Logout</MenuItem>
                 </Select>
               </FormControl>
-              <Typography variant="h3">{user[0].toUpperCase()}</Typography>
+              <Typography variant="h3">
+                {user.username[0].toUpperCase()}
+              </Typography>
             </Box>
           )}
           <Badge

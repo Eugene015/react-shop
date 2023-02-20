@@ -6,12 +6,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { theme } from "./theme";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import cartReducer from "./state";
+import { createStore } from "./state/createStore";
 
-const store = configureStore({
-  reducer: { cart: cartReducer },
-});
+const store = createStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
