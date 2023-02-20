@@ -11,6 +11,7 @@ import Login from "./scenes/Login";
 import Register from "./scenes/Register";
 import Search from "./scenes/Search";
 import { useFetchUser, UserProvider } from "./services/authContext";
+import Profile from "./scenes/Profile";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/searchpage" element={<Search />} />
             <Route path="item/:itemId" element={<ItemDetails />} />
             <Route path="checkout" element={<Checkout />} />

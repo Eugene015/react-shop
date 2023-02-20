@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
 import {
@@ -7,6 +7,10 @@ import {
   IconButton,
   useMediaQuery,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import {
   PersonOutline,
@@ -19,6 +23,7 @@ import InputBase from "@mui/material/InputBase";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../../theme";
 import { setIsCartOpen } from "../../../state";
+import { unsetToken } from "../../../services/auth";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,8 +75,8 @@ function Navbar({ user }) {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const cart = useSelector((state) => state.cart.cart);
   const isNonMobile = useMediaQuery("(min-width: 600px)");
-
-  console.log("🚀 ~ file: Navbar.jsx:69 ~ Navbar ~ user", user);
+  const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef();
 
   const handleInputChange = (e) => {
     setTimeout(() => {
@@ -81,11 +86,20 @@ function Navbar({ user }) {
     }, 1000);
   };
 
+  const logout = () => {
+    unsetToken();
+    navigate("/");
+  };
+
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       navigate("/searchpage", { state: { value: e.target.value } });
       setIsSearchClicked(false);
     }
+  };
+
+  const handleSelectClick = () => {
+    setIsOpen((prev) => !prev);
   };
 
   return (
@@ -153,6 +167,7 @@ function Navbar({ user }) {
             </IconButton>
           ) : (
             <Box
+              position="relative"
               display="flex"
               justifyContent="center"
               alignItems="center"
@@ -161,7 +176,27 @@ function Navbar({ user }) {
               height="30px"
               width="30px"
               borderRadius="50%"
+              onClick={handleSelectClick}
             >
+              <FormControl>
+                <Select
+                  ref={selectRef}
+                  open={isOpen}
+                  sx={{
+                    position: "absolute",
+                    top: "30px",
+                    maxHeight: 0,
+                    overflow: "hidden",
+                  }}
+                >
+                  <MenuItem value={10} onClick={() => navigate("/profile")}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem value={20} onClick={logout}>
+                    Logout
+                  </MenuItem>
+                </Select>
+              </FormControl>
               <Typography variant="h3">{user[0].toUpperCase()}</Typography>
             </Box>
           )}
