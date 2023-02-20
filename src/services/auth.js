@@ -23,7 +23,7 @@ export const getUserFromLocalCookie = () => {
   const jwt = getTokenFromLocalCookie();
   if (jwt) {
     return axios
-      .get("http://localhost:1337/api/users/me", {
+      .get(`https://ecommerce-shop-back.herokuapp.com/api/users/me`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -43,7 +43,7 @@ export const getIdFromLocalCookie = () => {
   const jwt = getTokenFromLocalCookie();
   if (jwt) {
     return axios
-      .get("http://localhost:1337/api/users/me", {
+      .get(`https://ecommerce-shop-back.herokuapp.com/api/users/me`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },

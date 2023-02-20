@@ -116,7 +116,7 @@ function Navbar() {
   async function getUserFromBack() {
     const jwt = getTokenFromLocalCookie();
     const responseUserData = await axios
-      .get("http://localhost:1337/api/users/me", {
+      .get(`https://ecommerce-shop-back.herokuapp.com/api/users/me`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },

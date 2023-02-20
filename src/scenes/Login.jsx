@@ -33,7 +33,7 @@ function Login() {
     e.preventDefault();
 
     const responseData = await axios
-      .post("http://localhost:1337/api/auth/local?populate=*", {
+      .post(`https://ecommerce-shop-back.herokuapp.com/api/auth/local`, {
         identifier: data.identifier,
         password: data.password,
       })

@@ -36,11 +36,14 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const responseData = await axios
-      .post("http://localhost:1337/api/auth/local/register", {
-        email: data.email,
-        password: data.password,
-        username: data.username,
-      })
+      .post(
+        `https://ecommerce-shop-back.herokuapp.com/api/auth/local/register`,
+        {
+          email: data.email,
+          password: data.password,
+          username: data.username,
+        }
+      )
       .then((response) => response.data)
       .catch((error) => {
         console.log(error.response.data.error.message);
