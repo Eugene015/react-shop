@@ -39,7 +39,6 @@ function Login() {
       })
       .then((response) => response.data)
       .catch((error) => {
-        console.log(error.response.data.error.message);
         setError(error.response.data.error.message);
       });
     dispatch(setUser(responseData.user));

@@ -21,7 +21,7 @@ function ShoppingList() {
     const items = await axios
       .get("https://ecommerce-shop-back.herokuapp.com/api/items?populate=image")
       .then((response) => response.data);
-    console.log(items.data);
+
     dispatch(setItems(items.data));
   }
 

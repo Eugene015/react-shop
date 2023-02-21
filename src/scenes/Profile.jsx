@@ -16,7 +16,6 @@ import { getTokenFromLocalCookie } from "../services/auth";
 
 function Profile() {
   const user = useSelector((state) => state.user.user);
-  console.log(user);
   async function getUserOrders() {
     const jwt = getTokenFromLocalCookie();
     const responseOrders = await axios
@@ -26,7 +25,6 @@ function Profile() {
         },
       })
       .then((response) => {
-        console.log(response.data.data);
         return response.data;
       })
       .catch((error) => {

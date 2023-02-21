@@ -46,10 +46,9 @@ function Register() {
       )
       .then((response) => response.data)
       .catch((error) => {
-        console.log(error.response.data.error.message);
         setError(error.response.data.error.message);
       });
-    console.log(responseData);
+
     dispatch(setUser(responseData.user));
     setToken(responseData);
     if (Cookies.get("username")) {

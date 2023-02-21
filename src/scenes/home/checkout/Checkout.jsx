@@ -94,7 +94,6 @@ const stripePromise = loadStripe(
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const cart = useSelector((state) => state.cart.cart);
-  console.log("🚀 ~ file: Checkout.jsx:97 ~ Checkout ~ cart:", cart);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
 
@@ -110,7 +109,6 @@ const Checkout = () => {
     }
 
     if (isSecondStep) {
-      console.log(values);
       makePayment(values);
     }
 
@@ -130,10 +128,7 @@ const Checkout = () => {
         count,
       })),
     };
-    console.log(
-      "🚀 ~ file: Checkout.jsx:149 ~ makePayment ~ requestBody:",
-      requestBody
-    );
+
     const jwt = getTokenFromLocalCookie();
     const response = await axios
       .post(
@@ -147,10 +142,6 @@ const Checkout = () => {
       )
       .then((response) => response)
       .catch((error) => console.log("axios catch error", error));
-    console.log(
-      "🚀 ~ file: Checkout.jsx:136 ~ makePayment ~ response",
-      response
-    );
 
     const session = await response.data;
     await stripe.redirectToCheckout({

@@ -91,7 +91,7 @@ function Navbar() {
   const handleInputChange = (e) => {
     setTimeout(() => {
       const value = e.target.value;
-      console.log(value);
+
       setValue(value);
     }, 1000);
   };
