@@ -20,7 +20,7 @@ import {
 } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { shades } from "../../../theme";
 import { getCart, setIsCartOpen } from "../../../state";
 import { unsetToken } from "../../../services/auth";
@@ -28,6 +28,7 @@ import { removeUser } from "../../../state/user";
 import { setUser } from "../../../state/user";
 import { getTokenFromLocalCookie } from "../../../services/auth";
 import axios from "axios";
+import NavMenu from "./NavMenu";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -76,6 +77,8 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [value, setValue] = useState("all");
+  const [closeMenu, setCloseMenu] = useState(false);
+  console.log("🚀 ~ file: Navbar.jsx:81 ~ Navbar ~ closeMenu:", closeMenu);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const cart = useSelector(getCart());
   const user = useSelector((state) => state.user.user);
@@ -258,9 +261,15 @@ function Navbar() {
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: "black" }}>
+          <IconButton
+            sx={{ color: "black", cursor: "pointer" }}
+            onClick={() => setCloseMenu(true)}
+          >
             <MenuOutlined />
           </IconButton>
+          {closeMenu && (
+            <NavMenu setCloseMenu={setCloseMenu} closeMenu={closeMenu} />
+          )}
         </Box>
       </Box>
     </Box>
