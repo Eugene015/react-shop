@@ -8,6 +8,7 @@ import Shipping from "./Shipping";
 import Payment from "./Payment";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { getTokenFromLocalCookie } from "../../../services/auth";
 
 const initialValues = {
   billingAddress: {
@@ -93,6 +94,7 @@ const stripePromise = loadStripe(
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
   const cart = useSelector((state) => state.cart.cart);
+  console.log("🚀 ~ file: Checkout.jsx:97 ~ Checkout ~ cart:", cart);
   const isFirstStep = activeStep === 0;
   const isSecondStep = activeStep === 1;
 
@@ -128,9 +130,21 @@ const Checkout = () => {
         count,
       })),
     };
-
+    console.log(
+      "🚀 ~ file: Checkout.jsx:149 ~ makePayment ~ requestBody:",
+      requestBody
+    );
+    const jwt = getTokenFromLocalCookie();
     const response = await axios
-      .post("https://ecommerce-shop-back.herokuapp.com/api/orders", requestBody)
+      .post(
+        "https://ecommerce-shop-back.herokuapp.com/api/orders",
+        requestBody,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      )
       .then((response) => response)
       .catch((error) => console.log("axios catch error", error));
     console.log(

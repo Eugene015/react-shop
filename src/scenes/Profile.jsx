@@ -9,9 +9,36 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getTokenFromLocalCookie } from "../services/auth";
 
 function Profile() {
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
+  async function getUserOrders() {
+    const jwt = getTokenFromLocalCookie();
+    const responseOrders = await axios
+      .get(`https://ecommerce-shop-back.herokuapp.com/api/orders`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log("An error occurred:", error.response);
+      });
+    return responseOrders;
+  }
+
+  useEffect(() => {
+    getUserOrders();
+  }, []);
+
   return (
     <Box width="80%" m="80px auto">
       <Box mb="24px">
@@ -37,7 +64,7 @@ function Profile() {
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell>
+                    {/* <TableCell>
                       <Typography>Table data 1</Typography>
                     </TableCell>
                     <TableCell>
@@ -54,7 +81,7 @@ function Profile() {
                     </TableCell>
                     <TableCell>
                       <Typography>Delete</Typography>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 </TableBody>
               </Table>
