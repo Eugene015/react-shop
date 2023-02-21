@@ -27,7 +27,11 @@ function CartMenu() {
   const dispatch = useDispatch();
   const cart = useSelector(getCart());
   const isCartOpen = useSelector(getIsCartOpen());
-
+  const isUserLoaded = useSelector((state) => state.user.isUserLoaded);
+  console.log(
+    "🚀 ~ file: CartMenu.jsx:31 ~ CartMenu ~ isUserLoaded:",
+    isUserLoaded
+  );
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.attributes.price;
   }, 0);
@@ -141,6 +145,11 @@ function CartMenu() {
                 m: "20px 0",
               }}
               onClick={() => {
+                if (!isUserLoaded) {
+                  navigate("/login");
+                  dispatch(setIsCartOpen({}));
+                  return;
+                }
                 navigate("/checkout");
                 dispatch(setIsCartOpen({}));
               }}

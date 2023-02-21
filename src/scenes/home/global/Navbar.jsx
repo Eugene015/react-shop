@@ -213,6 +213,7 @@ function Navbar() {
               width="30px"
               borderRadius="50%"
               onClick={handleSelectClick}
+              hover={{ cursor: "pointer", backgroundColor: "red" }}
             >
               <FormControl>
                 <Select

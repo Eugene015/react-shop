@@ -65,6 +65,9 @@ function Login() {
         width: "300px",
       }}
     >
+      <Typography variant="h3" sx={{ textAlign: "center", mb: "16px" }}>
+        Please, login or register
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Box>
           <TextField

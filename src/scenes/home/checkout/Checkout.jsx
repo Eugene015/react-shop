@@ -141,7 +141,9 @@ const Checkout = () => {
         }
       )
       .then((response) => response)
-      .catch((error) => console.log("axios catch error", error));
+      .catch((error) =>
+        console.log("axios catch error", error.response.data.error.message)
+      );
 
     const session = await response.data;
     await stripe.redirectToCheckout({
