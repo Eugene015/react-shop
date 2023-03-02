@@ -8,7 +8,6 @@ import {
   useMediaQuery,
   Typography,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
 } from "@mui/material";
@@ -20,7 +19,7 @@ import {
 } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { shades } from "../../../theme";
 import { getCart, setIsCartOpen } from "../../../state";
 import { unsetToken } from "../../../services/auth";

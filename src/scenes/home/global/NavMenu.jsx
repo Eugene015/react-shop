@@ -6,8 +6,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
 import ManIcon from "@mui/icons-material/Man";
 import WomanIcon from "@mui/icons-material/Woman";
 import EscalatorWarningIcon from "@mui/icons-material/EscalatorWarning";
@@ -38,7 +36,7 @@ function NavMenu({ closeMenu, setCloseMenu }) {
       height="100%"
       left="0"
       top="0"
-      zIndex={10}
+      zIndex={100}
       overflow="auto"
       onClick={() => setCloseMenu(false)}
     >
@@ -50,6 +48,7 @@ function NavMenu({ closeMenu, setCloseMenu }) {
         width="max(400px, 30%)"
         height="100%"
         backgroundColor="white"
+        zIndex={1000}
       >
         <Box padding="30px" overflow="auto" height="100%">
           {/* Header */}
@@ -60,9 +59,7 @@ function NavMenu({ closeMenu, setCloseMenu }) {
             </IconButton>
           </FlexBox>
           {/* Menu Links */}
-          <Box
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-          >
+          <Box sx={{ width: "100%", maxWidth: 360 }}>
             <List component="nav" aria-label="main mailbox folders">
               <ListItemButton
                 selected={selectedIndex === 0}
