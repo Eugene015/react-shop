@@ -36,7 +36,7 @@ function NavMenu({ closeMenu, setCloseMenu }) {
       height="100%"
       left="0"
       top="0"
-      zIndex={100}
+      zIndex={10}
       overflow="auto"
       onClick={() => setCloseMenu(false)}
     >
