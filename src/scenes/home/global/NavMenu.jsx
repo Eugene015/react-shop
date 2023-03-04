@@ -48,7 +48,7 @@ function NavMenu({ closeMenu, setCloseMenu }) {
         width="max(400px, 30%)"
         height="100%"
         backgroundColor="white"
-        zIndex={1000}
+        zIndex={100}
       >
         <Box padding="30px" overflow="auto" height="100%">
           {/* Header */}
