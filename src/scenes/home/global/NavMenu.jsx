@@ -53,7 +53,7 @@ function NavMenu({ closeMenu, setCloseMenu }) {
         <Box padding="30px" overflow="auto" height="100%">
           {/* Header */}
           <FlexBox mb="15px">
-            <Typography variant="h3">Nav Menu</Typography>
+            <Typography variant="h3">Navbar Menu</Typography>
             <IconButton onClick={() => setCloseMenu(false)}>
               <CloseIcon />
             </IconButton>
